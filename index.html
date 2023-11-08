@@ -5,17 +5,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timer</title>
 </head>
+
+<style>
+    .wrapper{
+        display: flex;
+        flex-direction: column;
+        align-items: center;                              
+        height: 100vh;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .heading{
+        font-size: 3em;
+        /* border: black 1px solid; */
+    }
+
+    .timer p{
+        font-size: 6em;
+        color: rgb(65, 65, 65);
+        /* border: black 1px solid; */
+    }
+
+    .button_txt{
+        font-size: 2em;
+        padding: 0.5em;
+        border-radius: 10%;
+        border: 0.1em black solid;
+        cursor: pointer;
+    }
+
+</style>
+
 <body>
-    <h1>Timer</h1>
-    <button type="button" onclick="test()">Vibrate</button>
-    <button type="button"></button>
+    <div class="wrapper">
+        <div class="heading">Get Set Go</div>
+        <div class="timer">
+            <p class="tick_tick">0s</p>
+        </div>
+        <div class="button">
+            <span class="button_txt" onclick="action()">Start</span>
+        </div>
+    </div>
 </body>
 
 <script>
-    function test(){
-        alert('Hi')
-        navigator.vibrate(1000); 
+    clock=false
+    count=-1
+
+    dataset={
+        "easy": [0,380,440,500,560,620,680,740,800,840],
+        "hard": [360,420,480,540,600,660,720,780],
+        "done": [1200]
+
     }
+
+    //const flags=Object.keys(dataset);
+
+    function counter(){
+        if(clock){
+            count++
+            
+            if(dataset.easy.includes(count)){
+                navigator.vibrate(500); 
+            }
+            else if(dataset.easy.includes(count)){
+                navigator.vibrate(100, 30, 100, 30); 
+            }            
+            else if(dataset.easy.includes(count)){
+                navigator.vibrate(2000); 
+            }                           
+
+            document.getElementsByClassName("tick_tick")[0].innerHTML = count          
+            setTimeout(counter, 1000)
+        }
+    }
+
+    function action(){
+        
+        if(document.getElementsByClassName("button_txt")[0].innerText === 'Start'){            
+            clock=true
+            document.getElementsByClassName("button_txt")[0].innerHTML = 'Stop'            
+            counter()
+        }
+        else{
+            clock=false
+            document.getElementsByClassName("button_txt")[0].innerHTML = 'Start'
+        }
+        
+    }    
+    
 </script>
 
 </html>

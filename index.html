@@ -34,14 +34,18 @@
         border: 0.1em black solid;
         cursor: pointer;
     }
+    
 
 </style>
 
 <body>
     <div class="wrapper">
         <div class="heading">Get Set Go</div>
+        <div class="completion">Completed </div>
+        <div class="completion_txt">0%</div>
         <div class="timer">
             <p class="tick_tick">0s</p>
+            
         </div>
         <div class="button">
             <span class="button_txt" onclick="action()">Start</span>
@@ -76,7 +80,9 @@
                 navigator.vibrate(2000); 
             }                           
 
-            document.getElementsByClassName("tick_tick")[0].innerHTML = count          
+            per=(count/1200)*100
+            document.getElementsByClassName("tick_tick")[0].innerHTML = count +"s"         
+            document.getElementsByClassName("completion_txt")[0].innerHTML = per.toFixed(2)+"%"
             setTimeout(counter, 1000)
         }
     }
